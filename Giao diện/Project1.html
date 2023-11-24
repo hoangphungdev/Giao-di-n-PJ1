@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="project1.css">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Báo cáo môn Project I - Lớp 733501</h1>
+        <h2>Phùng Mạnh Hoàng - 20215385</h2>
+    </div>
+
+    <div class="content">
+        <label for="week">Chọn tuần:</label>
+        <select id="week">
+            <!-- Các tuần sẽ được thêm vào đây bằng JavaScript -->
+        </select>
+
+        <label for="lesson">Chọn bài:</label>
+        <select id="lesson">
+            <!-- Các bài sẽ được thêm vào đây bằng JavaScript -->
+        </select>
+
+        <div class="container">
+            <div class="problem" id="problem">Đề bài sẽ được hiển thị ở đây</div>
+            <pre class="code" id="content"></pre>
+            <textarea class="input" id="input" placeholder="Nhập input ở đây"></textarea>
+            <pre class="output" id="output">Output sẽ được hiển thị ở đây</pre>
+
+        </div>
+
+        <form action="project1.php" method="post">
+            <div class="submit_container">
+                <input type="submit" value="submit" name="submit" />
+            </div>
+        </form>
+
+
+        <script>
+            fetch('data.json')
+                .then(response => response.json())
+                .then(data => {
+                    var weekSelect = document.getElementById('week');
+                    var lessonSelect = document.getElementById('lesson');
+                    var content = document.getElementById('content');
+
+                    // Thêm các tuần vào nút dropdown 'week'
+                    for (var week in data) {
+                        var option = document.createElement('option');
+                        option.textContent = week;
+                        weekSelect.appendChild(option);
+                    }
+
+                    // Khi tuần được chọn, thêm các bài vào nút dropdown 'lesson'
+                    weekSelect.addEventListener('change', function () {
+                        // Xóa các bài hiện tại
+                        lessonSelect.innerHTML = '';
+
+                        // Thêm các bài mới
+                        for (var lesson in data[this.value]) {
+                            var option = document.createElement('option');
+                            option.textContent = lesson;
+                            lessonSelect.appendChild(option);
+                        }
+
+                        // Hiển thị mã nguồn cho bài đầu tiên
+                        content.textContent = data[this.value][lessonSelect.value];
+                    });
+
+                    // Khi bài được chọn, hiển thị mã nguồn
+                    lessonSelect.addEventListener('change', function () {
+                        content.textContent = data[weekSelect.value][this.value];
+                    });
+
+                    // Kích hoạt sự kiện 'change' cho nút dropdown 'week' để hiển thị các bài cho tuần đầu tiên
+                    weekSelect.dispatchEvent(new Event('change'));
+                });
+        </script>
+
+        <script>
+            document.querySelector('form').addEventListener('submit', function (event) {
+                event.preventDefault(); // Ngăn chặn hành vi mặc định
+
+                // Lấy mã C++ từ ô nhập liệu
+                var cppCode = document.getElementById('content').textContent;
+                var inputParams = document.getElementById('input').value;
+
+                fetch('http://localhost:3000/run-cpp-code', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ cppCode: cppCode, inputParams: inputParams }),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        // Hiển thị kết quả
+                        document.getElementById('output').textContent = data;
+                    })
+                    .catch(e => {
+                        console.error('There was a problem with the fetch operation: ' + e.message);
+                    });
+            });
+
+
+        </script>
+
+    </div>
+</body>
+
+</html>
