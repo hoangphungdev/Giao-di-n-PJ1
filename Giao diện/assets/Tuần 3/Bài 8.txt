@@ -1,0 +1,33 @@
+Problem: Insert at the middle of a sequence
+
+Description
+Given a sequence of integers a1, a2, ..., an. The element in the middle is defined to be the element at index n/2 if n is even, and n/2+1, otherwise.
+Perform a sequence of actions of the form:
+ADD v: which add a value v right-after the element in the middle of an sequence a1, a2, ..., an. 
+PRINT: print the sequence to stdout, elements are separated by a SPACE character
+ 
+Input
+Line 1: contains a positive integer n (1 <= n <= 100000)
+Line 2: contains n positive integers a1, a2, ..., an (1 <= ai <= 1000000)
+Subsequent lines (number of lines can be up to 100000), each line contains an action of above format
+
+Output
+Write (in each line) the result of the corresponding PRINT action
+
+Example
+Input 
+2
+8 4 
+ADD 6
+ADD 5
+ADD 4
+PRINT
+ADD 2
+ADD 4
+PRINT
+#
+
+Output
+8 6 4 5 4
+8 6 4 4 2 5 4
+ 

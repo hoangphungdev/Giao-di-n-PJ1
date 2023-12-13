@@ -59,7 +59,7 @@ body {
     grid-template-columns: 1fr 1fr;
     grid-template-rows   : 1fr 300px;
     gap                  : 1em;
-    height               : 2000px;
+    height               : 1300px;
     /* Thêm dòng này để giới hạn chiều cao của container */
 }
 
@@ -103,4 +103,9 @@ input[type="submit"]:hover {
 .submit_container {
     text-align: center;
     margin    : 10px;
+}
+
+.problem {
+    white-space: pre-wrap;
+    overflow   : auto;
 }

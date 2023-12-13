@@ -1,20 +1,98 @@
 // Phung Manh Hoang 20215385
-// Problem: Sum Array
+// Problem: Simulation Stack
+
 #include <iostream>
 
 using namespace std;
 
+// Tao cau truc Node
+struct Node
+{
+    int data_85;
+    Node *next_85;
+};
+
+// Tao cau truc Stack
+struct Stack
+{
+    int top_85;
+    Node *head_85;
+};
+
+// Khoi tao Stack
+Stack initStack()
+{
+    Stack S_85;
+    S_85.top_85 = 0;
+    S_85.head_85 = NULL;
+    return S_85;
+}
+
+// Khoi tao Node
+Node *initNode(int data_85)
+{
+    Node *temp_85_85 = new Node();
+    temp_85_85->data_85 = data_85;
+    temp_85_85->next_85 = NULL;
+    return temp_85_85;
+}
+
+// Them Node vao Stack
+void Push(Stack &S_85, int data_85)
+{
+    Node *temp_85 = initNode(data_85);
+    temp_85->next_85 = S_85.head_85;
+    S_85.head_85 = temp_85;
+    S_85.top_85++;
+}
+
+// Xoa Node khoi Stack
+void Pop(Stack &S_85)
+{
+    if (S_85.top_85 > 0)
+    {
+        S_85.top_85--;
+        cout << S_85.head_85->data_85 << endl;
+        Node *temp_85 = S_85.head_85->next_85;
+        delete (S_85.head_85);
+        S_85.head_85 = temp_85;
+        return;
+    }
+    cout << "NULL" << endl;
+}
+
+// Xoa Stack
+void deleteStack(Stack &S_85)
+{
+    while (S_85.top_85 > 0)
+    {
+        Node *temp_85 = S_85.head_85->next_85;
+        delete (S_85.head_85);
+        S_85.head_85 = temp_85;
+        S_85.top_85--;
+    }
+}
+
 int main()
 {
-    int n_85;
-    int a_85[100000];
-    int sum_85 = 0;
-    cin >> n_85; // Nhap n
+    Stack S_85 = initStack();
+    string str_85;
+    int x_85;
 
-    for (int i = 0; i < n_85; i++)
+    do
     {
-        cin >> a_85[i];
-        sum_85 += a_85[i]; // Tinh tong tung phan tu cua mang
-    }
-    cout << sum_85; // In tong phan tu cua mang
+        cin >> str_85;
+        // Them Node vao Stack
+        if (str_85 == "PUSH")
+        {
+            cin >> x_85;
+            Push(S_85, x_85);
+        }
+        // Xoa Node khoi Stack
+        else if (str_85 == "POP")
+            Pop(S_85);
+
+    } while (str_85 != "#");
+
+    deleteStack(S_85);
 }

@@ -50,6 +50,7 @@
                     var weekSelect = document.getElementById('week');
                     var lessonSelect = document.getElementById('lesson');
                     var content = document.getElementById('content');
+                    var problem = document.getElementById('problem');
 
                     // Thêm các tuần vào nút dropdown 'week'
                     for (var week in data) {
@@ -71,12 +72,14 @@
                         }
 
                         // Hiển thị mã nguồn cho bài đầu tiên
-                        content.textContent = data[this.value][lessonSelect.value];
+                        content.textContent = data[this.value][lessonSelect.value].Code;
+                        problem.textContent = data[this.value][lessonSelect.value].Problem;
                     });
 
                     // Khi bài được chọn, hiển thị mã nguồn
                     lessonSelect.addEventListener('change', function () {
-                        content.textContent = data[weekSelect.value][this.value];
+                        content.textContent = data[weekSelect.value][this.value].Code;
+                        problem.textContent = data[weekSelect.value][this.value].Problem;
                     });
 
                     // Kích hoạt sự kiện 'change' cho nút dropdown 'week' để hiển thị các bài cho tuần đầu tiên
