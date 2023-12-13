@@ -1,5 +1,5 @@
 Cách sử dụng:
 1.Cài môi trường nodeJs
 2.Gõ npm install trên Terminal
-3.Gõ tiếp npm index.js trên Terminal
+3.Gõ tiếp node index.js trên Terminal
 4.Lên mạng vào link: http://localhost:3000/Project1.html
